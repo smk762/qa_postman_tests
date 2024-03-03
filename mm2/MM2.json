@@ -1,0 +1,11 @@
+{
+    "gui": "MM2_POSTMAN",
+    "netid": 8762,
+    "rpcport": 7783,
+    "rpc_password": "RPC_CONTRoL_USERP@SSW0RD",
+    "passphrase": "insecure seed for testing only",
+    "userhome": "/${HOME#\"/\"}",
+    "rpc_local_only": false,
+    "rpcip": "0.0.0.0"
+}
+

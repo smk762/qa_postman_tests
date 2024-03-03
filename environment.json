@@ -1,0 +1,47 @@
+{
+	"name": "newman_docker",
+	"values": [
+		{
+			"key": "url",
+			"value": "komodefi",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "port",
+			"value": "7783",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userpass",
+			"value": "RPC_CONTRoL_USERP@SSW0RD",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "enable_utxo_taskid",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "scan_new_addresses_taskid",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "init_withdraw_taskid",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "mm2_version",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	]
+}

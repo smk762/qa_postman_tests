@@ -1,0 +1,1144 @@
+{
+	"info": {
+		"_postman_id": "46138bcd-769f-4ed1-b232-3850b805c9ec",
+		"name": "DeFi Framework TCP Tests (non-HD)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12719479",
+		"_collection_link": "https://smk762.postman.co/workspace/KMD-QA~b04e9300-501c-4931-9886-94f79ebc51a5/collection/12719479-46138bcd-769f-4ed1-b232-3850b805c9ec?action=share&source=collection_link&creator=12719479"
+	},
+	"item": [
+		{
+			"name": "activation",
+			"item": [
+				{
+					"name": "v2",
+					"item": []
+				},
+				{
+					"name": "electrum (UTXO) DOC",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"    pm.expect(jsonData).to.have.property('requires_notarization');",
+									"    pm.expect(jsonData).to.have.property('mature_confirmations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"DOC\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10020\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10020\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10020\"\r\n        }\r\n    ],\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    \"tx_history\": true\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"requires_notarization\": false, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": [
+						{
+							"name": "electrum (UTXO) DOC",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"DOC\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10020\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10020\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10020\"\r\n        }\r\n    ],\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    \"tx_history\": true\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"requires_notarization\": false, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://{{url}}:{{port}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "content-length",
+									"value": "204"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 03 Mar 2024 10:20:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": \"success\",\n    \"address\": \"RLiNozZaVZ2idjKiEMREeBbqf23HtXBS56\",\n    \"balance\": \"0\",\n    \"unspendable_balance\": \"0\",\n    \"coin\": \"DOC\",\n    \"required_confirmations\": 1,\n    \"requires_notarization\": false,\n    \"mature_confirmations\": 100\n}"
+						}
+					]
+				},
+				{
+					"name": "electrum (UTXO) KMD",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"    pm.expect(jsonData).to.have.property('requires_notarization');",
+									"    pm.expect(jsonData).to.have.property('mature_confirmations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"KMD\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:20001\",\r\n            \"protocol\": \"SSL\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:20001\",\r\n            \"protocol\": \"SSL\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:20001\",\r\n            \"protocol\": \"SSL\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        }\r\n    ]\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"requires_notarization\": false, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": [
+						{
+							"name": "electrum (UTXO) KMD",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"KMD\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:20001\",\r\n            \"protocol\": \"SSL\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:20001\",\r\n            \"protocol\": \"SSL\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:20001\",\r\n            \"protocol\": \"SSL\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        }\r\n    ]\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"requires_notarization\": false, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://{{url}}:{{port}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "content-length",
+									"value": "203"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 03 Mar 2024 10:25:24 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"result\":\"success\",\"address\":\"RLiNozZaVZ2idjKiEMREeBbqf23HtXBS56\",\"balance\":\"0\",\"unspendable_balance\":\"0\",\"coin\":\"KMD\",\"required_confirmations\":2,\"requires_notarization\":true,\"mature_confirmations\":100}"
+						}
+					]
+				},
+				{
+					"name": "electrum (UTXO) TICKER",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);\r",
+									"pm.collectionVariables.set(\"ticker\", \"DGB\");\r",
+									"pm.collectionVariables.set(\"tcp_electrum\", \"electrum2.cipig.net:10059\");\r",
+									"pm.collectionVariables.set(\"ssl_electrum\", \"electrum2.cipig.net:20059\");\r",
+									"pm.collectionVariables.set(\"tx_history\", true);\r",
+									"pm.collectionVariables.set(\"required_confirmations\", 3);\r",
+									"pm.collectionVariables.set(\"requires_notarization\", false);\r",
+									"console.log(pm.collectionVariables.get(\"tcp_electrum\"))\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"    pm.expect(jsonData).to.have.property('requires_notarization');",
+									"    pm.expect(jsonData).to.have.property('mature_confirmations');",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"{{ticker}}\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"{{tcp_electrum}}\",\r\n            \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"{{ssl_electrum}}\",\r\n            \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        } //,\r\n        //     {\r\n        //         \"url\": \"{{wss_electrum_server}}\"\r\n        //         \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n        //         \"disable_cert_verification\": false\r\n        //     }\r\n    ],\r\n    \"tx_history\": {{tx_history}},\r\n    \"required_confirmations\": {{required_confirmations}}, // Default: Coin Config\r\n    \"requires_notarization\": {{requires_notarization}} // Default: Coin Config\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": [
+						{
+							"name": "electrum (UTXO) TICKER",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"{{ticker}}\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"{{tcp_electrum}}\",\r\n            \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"{{ssl_electrum}}\",\r\n            \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        } //,\r\n        //     {\r\n        //         \"url\": \"{{wss_electrum_server}}\"\r\n        //         \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n        //         \"disable_cert_verification\": false\r\n        //     }\r\n    ],\r\n    \"tx_history\": {{tx_history}},\r\n    \"required_confirmations\": {{required_confirmations}}, // Default: Coin Config\r\n    \"requires_notarization\": {{requires_notarization}} // Default: Coin Config\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{url}}:{{port}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "content-length",
+									"value": "204"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 03 Mar 2024 10:36:33 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"result\":\"success\",\"address\":\"DGaHGjcwC98S6j97VmRg6RSEmtJzZwwbXF\",\"balance\":\"0\",\"unspendable_balance\":\"0\",\"coin\":\"DGB\",\"required_confirmations\":3,\"requires_notarization\":false,\"mature_confirmations\":100}"
+						}
+					]
+				},
+				{
+					"name": "electrum (UTXO) MARTY",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"    pm.expect(jsonData).to.have.property('requires_notarization');",
+									"    pm.expect(jsonData).to.have.property('mature_confirmations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"MARTY\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10021\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10021\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10021\"\r\n        }\r\n    ],\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    \"tx_history\": false\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"requires_notarization\": false, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": [
+						{
+							"name": "electrum (UTXO) MARTY",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"MARTY\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10021\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10021\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10021\"\r\n        }\r\n    ],\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    \"tx_history\": false\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"requires_notarization\": false, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\", \"cashaddress\"\r\n    // //    \"network\": \"bchtest\" // Required only if: \"format\": \"cashaddress\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://{{url}}:{{port}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "content-length",
+									"value": "206"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 03 Mar 2024 11:24:17 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"result\":\"success\",\"address\":\"RLiNozZaVZ2idjKiEMREeBbqf23HtXBS56\",\"balance\":\"0\",\"unspendable_balance\":\"0\",\"coin\":\"MARTY\",\"required_confirmations\":1,\"requires_notarization\":false,\"mature_confirmations\":100}"
+						}
+					]
+				},
+				{
+					"name": "electrum tQTUM",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"    pm.expect(jsonData).to.have.property('requires_notarization');",
+									"    pm.expect(jsonData).to.have.property('mature_confirmations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"tQTUM\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10071\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10071\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10071\"\r\n        }\r\n    ]\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "electrum QRC20",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"    pm.expect(jsonData).to.have.property('requires_notarization');",
+									"    pm.expect(jsonData).to.have.property('mature_confirmations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"electrum\",\r\n    \"coin\": \"QC\",\r\n    \"servers\": [\r\n        {\r\n            \"url\": \"electrum1.cipig.net:10050\"\r\n            // \"protocol\": \"TCP\" // Accepted values: \"TCP\", \"SSL\", \"WS\", \"WSS\"\r\n            // \"disable_cert_verification\": false\r\n        },\r\n        {\r\n            \"url\": \"electrum2.cipig.net:10050\"\r\n        },\r\n        {\r\n            \"url\": \"electrum3.cipig.net:10050\"\r\n        }\r\n    ],\r\n    \"swap_contract_address\": \"0x2f754733acd6d753731c00fee32cb484551cc15d\"\r\n    // \"fallback_swap_contract\": null, // Accepted values: Strings\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": 1, // Default: Coin Config\r\n    // \"address_format\": {\r\n    //     \"format\": \"standard\" // Accepted values: \"standard\", \"segwit\"\r\n    // }, // Default: Coin Config\r\n    // \"utxo_merge_params\": null,\r\n    // // \"utxo_merge_params\": {\r\n    // //     \"merge_at\":50\r\n    // //     // \"check_every\":10,\r\n    // //     // \"max_merge_at_once\":100\r\n    // //     },\r\n    // \"check_utxo_maturity\": false,\r\n    // \"priv_key_policy\": \"IguanaPrivKey\", // Accepted values: \"IguanaPrivKey\", \"Trezor\"\r\n    // \"gap_limit\": 20, // used only if: \"priv_key_policy\": \"Trezor\"\r\n    // \"scan_policy\": \"scan_if_new_wallet\" // Accepted values: \"do_not_scan\", \"scan_if_new_wallet\", \"scan\" // used only if: \"priv_key_policy\": \"Trezor\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "enable (EVM) MATIC",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"MATIC\",\r\n    \"urls\": [\r\n        \"https://polygon-rpc.com\",\r\n        \"https://polygon.blockpi.network/v1/rpc/public\",\r\n        \"https://polygon.llamarpc.com\"\r\n    ],\r\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\"\r\n    // \"fallback_swap_contract\": null, // Accepted values: Strings\r\n    // \"gas_station_url\": null, // Accepted values: Strings\r\n    // \"gas_station_decimals\": 8,\r\n    // \"gas_station_policy\": {\r\n    //     \"policy\": \"MeanAverageFast\" // Accepted values: \"MeanAverageFast\", \"Average\"\r\n    // },\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": 1 // Default: Coin Config\r\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": [
+						{
+							"name": "enable (EVM) MATIC",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"MATIC\",\r\n    \"urls\": [\r\n        \"https://polygon-rpc.com\",\r\n        \"https://polygon.blockpi.network/v1/rpc/public\",\r\n        \"https://polygon.llamarpc.com\"\r\n    ],\r\n    \"swap_contract_address\": \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\"\r\n    // \"fallback_swap_contract\": null, // Accepted values: Strings\r\n    // \"gas_station_url\": null, // Accepted values: Strings\r\n    // \"gas_station_decimals\": 8,\r\n    // \"gas_station_policy\": {\r\n    //     \"policy\": \"MeanAverageFast\" // Accepted values: \"MeanAverageFast\", \"Average\"\r\n    // },\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n    // \"tx_history\": false,\r\n    // \"required_confirmations\": 1 // Default: Coin Config\r\n}"
+								},
+								"url": {
+									"raw": "http://{{url}}:{{port}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "content-length",
+									"value": "188"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 03 Mar 2024 10:39:32 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"result\":\"success\",\"address\":\"0x84ab8F6101aDEC61d067b5A34690727b4Ea5B27a\",\"balance\":\"0\",\"unspendable_balance\":\"0\",\"coin\":\"MATIC\",\"required_confirmations\":20,\"requires_notarization\":false}"
+						}
+					]
+				},
+				{
+					"name": "enable (EVM) TICKER",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);\r",
+									"pm.collectionVariables.set(\"ticker\", \"MATIC\");\r",
+									"pm.collectionVariables.set(\"evm_urls\", '\"https://polygon-rpc.com\", \"https://polygon.blockpi.network/v1/rpc/public\", \"https://polygon.llamarpc.com\"');\r",
+									"pm.collectionVariables.set(\"tx_history\", true);\r",
+									"pm.collectionVariables.set(\"swap_contract_address\", \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\");\r",
+									"pm.collectionVariables.set(\"fallback_swap_contract\", \"0x24ABE4c71FC658C91313b6552cd40cD808b3Ea80\");\r",
+									"pm.collectionVariables.set(\"required_confirmations\", 2);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"    pm.expect(jsonData).to.have.property('address');",
+									"    pm.expect(jsonData).to.have.property('balance');",
+									"    pm.expect(jsonData).to.have.property('unspendable_balance');",
+									"    pm.expect(jsonData).to.have.property('coin');",
+									"    pm.expect(jsonData).to.have.property('required_confirmations');",
+									"    pm.expect(jsonData).to.have.property('requires_notarization');",
+									"    pm.expect(jsonData).to.have.property('mature_confirmations');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"{{ticker}}\",\r\n    \"urls\": [{{evm_urls}}],\r\n    \"swap_contract_address\": \"{{swap_contract_address}}\",\r\n    \"fallback_swap_contract\": \"{{fallback_swap_contract}}\",\r\n    \"tx_history\": {{tx_history}},\r\n    \"required_confirmations\": {{required_confirmations}}\r\n    // \"gas_station_url\": null, // Accepted values: Strings\r\n    // \"gas_station_decimals\": 8,\r\n    // \"gas_station_policy\": {\r\n    //     \"policy\": \"MeanAverageFast\" // Accepted values: \"MeanAverageFast\", \"Average\"\r\n    // },\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": [
+						{
+							"name": "enable (EVM) TICKER",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"enable\",\r\n    \"coin\": \"{{ticker}}\",\r\n    \"urls\": [{{evm_urls}}],\r\n    \"swap_contract_address\": \"{{swap_contract_address}}\",\r\n    \"fallback_swap_contract\": \"{{fallback_swap_contract}}\",\r\n    \"tx_history\": {{tx_history}},\r\n    \"required_confirmations\": {{required_confirmations}}\r\n    // \"gas_station_url\": null, // Accepted values: Strings\r\n    // \"gas_station_decimals\": 8,\r\n    // \"gas_station_policy\": {\r\n    //     \"policy\": \"MeanAverageFast\" // Accepted values: \"MeanAverageFast\", \"Average\"\r\n    // },\r\n    // \"mm2\": null, // Required only if: Not in Coin Config // Accepted values: 0, 1\r\n}"
+								},
+								"url": {
+									"raw": "http://{{url}}:{{port}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "access-control-allow-origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "content-length",
+									"value": "187"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 03 Mar 2024 10:55:32 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"result\":\"success\",\"address\":\"0x84ab8F6101aDEC61d067b5A34690727b4Ea5B27a\",\"balance\":\"0\",\"unspendable_balance\":\"0\",\"coin\":\"MATIC\",\"required_confirmations\":2,\"requires_notarization\":false}"
+						}
+					]
+				},
+				{
+					"name": "disable_coin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"disable_coin\",\r\n    \"coin\": \"{{ticker}}\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						},
+						"description": "Disables the selected coin."
+					},
+					"response": []
+				},
+				{
+					"name": "get_enabled_coins",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Strip JSON Comments\r",
+									"const rawData = pm.request.body.toString();\r",
+									"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+									"\r",
+									"pm.request.body.update(strippedData);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response has correct keys\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('result');",
+									"});",
+									"pm.test(\"Response has correct length\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.result).to.be.an('array').with.lengthOf(5);",
+									"});",
+									"pm.test(\"Response has correct keys\", function () {",
+									"    pm.expect(pm.response.json()).to.have.property('result');",
+									"});",
+									"pm.test(\"An element in the result array has a 'ticker' value of 'DOC'\", function () {",
+									"    pm.expect(pm.response.json().result.some(item => item.ticker === 'DOC')).to.be.true;",
+									"});",
+									"pm.test(\"Np element in the result array has a 'ticker' value of 'BTC'\", function () {",
+									"    pm.expect(pm.response.json().result.some(item => item.ticker === 'BTC')).to.be.false;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"get_enabled_coins\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://{{url}}:{{port}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}"
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "help",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Strip JSON Comments\r",
+							"const rawData = pm.request.body.toString();\r",
+							"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+							"\r",
+							"pm.request.body.update(strippedData);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"help\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://{{url}}:{{port}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "version",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Strip JSON Comments\r",
+							"const rawData = pm.request.body.toString();\r",
+							"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+							"\r",
+							"pm.request.body.update(strippedData);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response has 'datetime' key\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('datetime');",
+							"    // Save version to variable for test run report.",
+							"    pm.environment.set(\"mm2_version\", jsonData['result'] );",
+							"});",
+							"console.log(\"Testing API version [\"+ pm.environment.get(\"mm2_version\") +\"]\")",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"version\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://{{url}}:{{port}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "metrics",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Strip JSON Comments\r",
+							"const rawData = pm.request.body.toString();\r",
+							"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
+							"\r",
+							"pm.request.body.update(strippedData);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"metrics\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://{{url}}:{{port}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stop",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Strip JSON Comments",
+							"const rawData = pm.request.body.toString();",
+							"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
+							"",
+							"pm.request.body.update(strippedData);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userpass\": \"{{userpass}}\",\n    \"method\": \"stop\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Functional method (recommended)",
+					"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+					"pm.test(\"Response time is less than 2000ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+					"});",
+					"",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ticker",
+			"value": ""
+		},
+		{
+			"key": "tcp_electrum",
+			"value": ""
+		},
+		{
+			"key": "ssl_electrum",
+			"value": ""
+		},
+		{
+			"key": "tx_history",
+			"value": ""
+		},
+		{
+			"key": "required_confirmations",
+			"value": ""
+		},
+		{
+			"key": "requires_notarization",
+			"value": ""
+		},
+		{
+			"key": "evm_urls",
+			"value": ""
+		},
+		{
+			"key": "contract_address",
+			"value": ""
+		},
+		{
+			"key": "fallback_swap_contract",
+			"value": ""
+		},
+		{
+			"key": "swap_contract_address",
+			"value": ""
+		}
+	]
+}

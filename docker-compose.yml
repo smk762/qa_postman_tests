@@ -9,9 +9,6 @@ services:
       - NEWMAN_REPORTERS=cli,html
       - NEWMAN_REPORTER_HTML_TEMPLATE='template.hbs'
       - NEWMAN_REPORTER_HTML_EXPORT='newman-report.html
-      - API_KEY="PMAK-65e46ac603f87a0001c62502-416d2a73e2ea807129a1808bf4103837fc"
-      - COLLECTION_ID="12719479-46138bcd-769f-4ed1-b232-3850b805c9ec"
-      - ENV_ID="33262259-1713ed0b-0c15-47b6-aaad-9ceb9a4033c9"
     command: ./run_tests.sh
     depends_on:
       - komodefi

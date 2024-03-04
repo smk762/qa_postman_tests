@@ -1,14 +1,11 @@
 version: '3'
 
 services:
-  postman-tests:
+  newman:
+    container_name: newman
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - NEWMAN_REPORTERS=cli,html
-      - NEWMAN_REPORTER_HTML_TEMPLATE='template.hbs'
-      - NEWMAN_REPORTER_HTML_EXPORT='newman-report.html
     command: ./run_tests.sh
     depends_on:
       - komodefi

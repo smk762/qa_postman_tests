@@ -26,6 +26,7 @@ ENV PATH=/app:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 COPY ./MM2.json .
 COPY ./coins .
+COPY ./.env .
 
 # Setup user and working directory
 RUN chown -R komodian:notarygroup /home/komodian

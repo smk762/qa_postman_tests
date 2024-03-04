@@ -802,6 +802,14 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -898,47 +906,6 @@
 			]
 		},
 		{
-			"name": "help",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"// Strip JSON Comments\r",
-							"const rawData = pm.request.body.toString();\r",
-							"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-							"\r",
-							"pm.request.body.update(strippedData);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"help\"\r\n}\r\n"
-				},
-				"url": {
-					"raw": "http://{{url}}:{{port}}",
-					"protocol": "http",
-					"host": [
-						"{{url}}"
-					],
-					"port": "{{port}}"
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "version",
 			"event": [
 				{
@@ -958,7 +925,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"",
 							"pm.test(\"Response has 'datetime' key\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData).to.have.property('datetime');",
@@ -992,82 +958,6 @@
 						"{{url}}"
 					],
 					"port": "{{port}}"
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "metrics",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"// Strip JSON Comments\r",
-							"const rawData = pm.request.body.toString();\r",
-							"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)\r",
-							"\r",
-							"pm.request.body.update(strippedData);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userpass\": \"{{userpass}}\",\r\n    \"method\": \"metrics\"\r\n}\r\n"
-				},
-				"url": {
-					"raw": "http://{{url}}:{{port}}",
-					"protocol": "http",
-					"host": [
-						"{{url}}"
-					],
-					"port": "{{port}}"
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "stop",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"// Strip JSON Comments",
-							"const rawData = pm.request.body.toString();",
-							"const strippedData = rawData.replace(/\\\\\"|\"(?:\\\\\"|[^\"])*\"|(\\/\\/.*|\\/\\*[\\s\\S]*?\\*\\/)/g, (m, g) => g ? \"\" : m)",
-							"",
-							"pm.request.body.update(strippedData);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"userpass\": \"{{userpass}}\",\n    \"method\": \"stop\"\n}\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": ""
 				}
 			},
 			"response": []

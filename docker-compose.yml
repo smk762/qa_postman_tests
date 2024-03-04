@@ -3,6 +3,8 @@ version: '3'
 services:
   newman:
     container_name: newman
+    env_file:
+      - ./.env
     build:
       context: .
       dockerfile: Dockerfile
@@ -27,8 +29,5 @@ services:
       - 127.0.0.1:42945:42845
       - 127.0.0.1:42955:42855
     logging:
-      driver: "json-file"
-      options:
-        max-size: "20m"
-        max-file: "10"
+      driver: none
     restart: always

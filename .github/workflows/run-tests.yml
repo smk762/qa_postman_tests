@@ -59,3 +59,4 @@ jobs:
           QASE_RUN_NAME:	'Basic DeFi tests'
           QASE_RUN_DESCRIPTION: 'Newman tests'
           QASE_LOGGING: debug
+      - run: newman run collection.json -e environment.json 

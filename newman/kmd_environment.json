@@ -1,0 +1,29 @@
+{
+	"name": "newman_docker",
+	"values": [
+		{
+			"key": "url",
+			"value": "komodod_b",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "rpc_port",
+			"value": "9789",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "rpc_password",
+			"value": "RPC_CONTRoL_USERP@SSW0RD",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "rpc_user",
+			"value": "rpcuser",
+			"type": "any",
+			"enabled": true
+		}
+	]
+}

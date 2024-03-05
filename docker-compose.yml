@@ -1,33 +1,95 @@
-version: '3'
+version: '3.7'
+
+x-zcash-params-volume:
+  &zcash-params
+  type: bind
+  read_only: true
+  source: ${HOME}/.zcash-params
+  target: /home/komodian/.zcash-params
 
 services:
   newman:
     container_name: newman
     env_file:
-      - ./.env
+      - ./newman/.env
     build:
-      context: .
+      context: ./newman
       dockerfile: Dockerfile
     command: ./run_tests.sh
     depends_on:
       - komodefi
+      - komodod_a
+      - komodod_b
 
   komodefi:
     container_name: komodefi
     env_file:
-      - ./mm2/.env
+      - ./komodefi/.env
     build:
-      context: ./mm2
+      context: ./komodefi
       dockerfile: Dockerfile
       args:
         - USER_ID=${USER_ID:-1000}
         - GROUP_ID=${GROUP_ID:-1000}
     volumes:
-      - ./:/mm2
+      - ./:/komodefi
     ports:
       - 127.0.0.1:7783:7783
-      - 127.0.0.1:42945:42845
-      - 127.0.0.1:42955:42855
+      - 0.0.0.0:42845:42845
+      - 0.0.0.0:42855:42855
     logging:
       driver: none
     restart: always
+
+  komodod_a:
+    container_name: komodod_a
+    env_file:
+      - ./komodo/.env
+    build:
+      context: ./komodo
+      dockerfile: Dockerfile
+      args:
+        - USER_ID=${USER_ID:-1000}
+        - GROUP_ID=${GROUP_ID:-1000}
+        - SERVICE_CLI="komodo-cli -ac_name=QATEST"
+    ports:
+      - "0.0.0.0:9688:9688"
+      - "127.0.0.1:9689:9689"
+    volumes:
+      - <<: *zcash-params
+      - ${HOME}/.komodo/QATEST_A:/home/komodian/.komodo/QATEST
+    restart: always
+    stop_grace_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+    command: ["/run.sh"]
+
+  komodod_b:
+    container_name: komodod_b
+    env_file:
+      - ./komodo/.env
+    build:
+      context: ./komodo
+      dockerfile: Dockerfile
+      args:
+        - USER_ID=${USER_ID:-1000}
+        - GROUP_ID=${GROUP_ID:-1000}
+        - SERVICE_CLI="komodo-cli -ac_name=QATEST"
+    ports:
+      - "0.0.0.0:9788:9788"
+      - "127.0.0.1:9789:9789"
+    volumes:
+      - <<: *zcash-params
+      - ${HOME}/.komodo/QATEST_B:/home/komodian/.komodo/QATEST
+    restart: always
+    stop_grace_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+    command: ["/run.sh"]
+

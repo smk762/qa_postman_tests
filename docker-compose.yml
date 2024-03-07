@@ -40,11 +40,14 @@ services:
     logging:
       driver: none
     restart: always
+    networks:
+      custom_net:
+        ipv4_address: 10.9.8.7
 
   komodod_a:
     container_name: komodod_a
     env_file:
-      - ./komodo/.env
+      - ./komodo/.env_a
     build:
       context: ./komodo
       dockerfile: Dockerfile
@@ -66,11 +69,14 @@ services:
         max-size: "20m"
         max-file: "10"
     command: ["/run.sh"]
+    networks:
+      custom_net:
+        ipv4_address: 10.9.8.6
 
   komodod_b:
     container_name: komodod_b
     env_file:
-      - ./komodo/.env
+      - ./komodo/.env_b
     build:
       context: ./komodo
       dockerfile: Dockerfile
@@ -92,4 +98,15 @@ services:
         max-size: "20m"
         max-file: "10"
     command: ["/run.sh"]
+    networks:
+      custom_net:
+        ipv4_address: 10.9.8.5
 
+
+networks:
+  custom_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.9.0.0/16
+          gateway: 10.9.8.1

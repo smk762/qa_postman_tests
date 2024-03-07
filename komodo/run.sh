@@ -14,7 +14,7 @@ fi
 
 CONF_PATH="/home/komodian/.komodo/QATEST"
 
-exec komodod -ac_name=QATEST -minrelaytxfee=0.000035 -opretmintxfee=0.004 -notary -pubkey=$PUBKEY -conf="$CONF_PATH/QATEST.conf" "$@" &
+exec komodod -ac_name=QATEST -port=$P2P_PORT -minrelaytxfee=0.000035 -opretmintxfee=0.004 "$@" &
 sleep 5
 tail -f "${CONF_PATH}/debug.log" & wait
 

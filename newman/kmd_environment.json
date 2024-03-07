@@ -1,5 +1,6 @@
 {
-	"name": "newman_docker",
+	"id": "deae1257-d3e5-45b7-a4dd-2de25d9e6a7c",
+	"name": "kmd_smk_local",
 	"values": [
 		{
 			"key": "url",
@@ -14,6 +15,18 @@
 			"enabled": true
 		},
 		{
+			"key": "komodod_a_rpc_port",
+			"value": "9789",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "komodod_b_rpc_port",
+			"value": "9689",
+			"type": "default",
+			"enabled": true
+		},
+		{
 			"key": "rpc_password",
 			"value": "RPC_CONTRoL_USERP@SSW0RD",
 			"type": "secret",
@@ -22,8 +35,47 @@
 		{
 			"key": "rpc_user",
 			"value": "rpcuser",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "komodod_a_ip",
+			"value": "10.9.8.6",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "komodod_b_ip",
+			"value": "10.9.8.5",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "address",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "privkey",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "pubkey",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "balance",
+			"value": "",
 			"type": "any",
 			"enabled": true
 		}
-	]
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-03-07T11:41:01.618Z",
+	"_postman_exported_using": "Postman/10.23.4"
 }
